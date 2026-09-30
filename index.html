@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>BICHÃO BET — Concorra a até R$ 1.000 em banca</title>
+<link rel="icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;0,900;1,900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde:#03F2FE;
+  --verde-escuro:#0797a0;
+  --preto:#000;
+  --branco:#fff;
+  --cinza:rgba(255,255,255,.55);
+  --dur:4200ms; /* tempo total do carregamento */
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow-x:hidden;background:var(--preto)}
+body{
+  color:var(--branco);
+  font-family:Inter,system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  display:flex;flex-direction:column;
+  min-height:100dvh;
+  padding:max(20px,env(safe-area-inset-top)) 16px max(20px,env(safe-area-inset-bottom));
+  position:relative;
+}
+/* halo verde discreto atrás de tudo — luz por trás, nunca cortada */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(60vmax 60vmax at 50% 42%, rgba(3,242,254,.14), transparent 60%),
+    radial-gradient(40vmax 40vmax at 50% 110%, rgba(3,242,254,.08), transparent 60%);
+}
+.topo,.meio,.rodape{position:relative;z-index:1;width:100%;max-width:520px;margin:0 auto}
+.topo{display:flex;justify-content:center;padding-top:8px}
+.topo img{width:min(230px,64vw);height:auto;display:block;filter:drop-shadow(0 0 18px rgba(3,242,254,.25))}
+
+.meio{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-width:0}
+
+/* ---------- FASE 1: carregando ---------- */
+.fase{width:100%;display:flex;flex-direction:column;align-items:center;min-width:0}
+.fase[hidden]{display:none}
+
+.rolo{
+  width:108px;height:108px;border-radius:50%;position:relative;margin-bottom:28px;
+  background:radial-gradient(circle at 50% 50%, #061416 0 58%, transparent 60%);
+}
+.rolo::before{
+  content:"";position:absolute;inset:0;border-radius:50%;
+  border:3px solid rgba(3,242,254,.16);
+}
+.rolo::after{
+  content:"";position:absolute;inset:0;border-radius:50%;
+  border:3px solid transparent;border-top-color:var(--verde);border-right-color:var(--verde);
+  animation:girar .9s linear infinite;
+  filter:drop-shadow(0 0 8px rgba(3,242,254,.7));
+}
+.rolo span{
+  position:absolute;inset:0;display:flex;align-items:baseline;justify-content:center;padding-top:41px;
+  font:italic 900 24px/1 Montserrat,sans-serif;color:var(--verde);letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums;gap:2px;
+}
+.rolo small{font-size:13px;font-weight:900;margin-right:1px}
+.rolo b{font-weight:900}
+.ate{font:600 13px/1 Inter,sans-serif;color:var(--cinza);letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px}
+@keyframes girar{to{transform:rotate(360deg)}}
+
+.titulo{
+  font:italic 900 clamp(24px,7vw,34px)/1.05 Montserrat,sans-serif;
+  text-transform:uppercase;letter-spacing:-.01em;
+  max-width:100%;
+}
+.titulo em{font-style:italic;color:var(--verde)}
+.status{margin-top:10px;font:500 14px/1.4 Inter,sans-serif;color:var(--cinza);min-height:1.4em}
+.status::after{content:"";animation:pontos 1.2s steps(4,end) infinite}
+@keyframes pontos{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
+
+.barra{
+  width:100%;max-width:360px;height:14px;margin-top:26px;border-radius:999px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08);overflow:hidden;position:relative;
+}
+.barra i{
+  display:block;height:100%;width:0%;border-radius:999px;
+  background:linear-gradient(90deg,var(--verde-escuro),var(--verde));
+  box-shadow:0 0 14px rgba(3,242,254,.6);
+  transition:width .25s linear;position:relative;overflow:hidden;
+}
+.barra i::after{ /* brilho correndo */
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent 0,rgba(255,255,255,.45) 50%,transparent 100%);
+  transform:translateX(-100%);animation:brilho 1.1s ease-in-out infinite;
+}
+@keyframes brilho{to{transform:translateX(100%)}}
+.pct{margin-top:10px;font:600 13px/1 Inter,sans-serif;color:var(--verde);letter-spacing:.08em;font-variant-numeric:tabular-nums}
+
+/* ---------- FASE 2: pronto ---------- */
+.pronto{animation:subir .55s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes subir{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
+.check{
+  width:64px;height:64px;border-radius:50%;margin-bottom:22px;
+  background:var(--verde);display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 0 10px rgba(3,242,254,.12),0 0 30px rgba(3,242,254,.55);
+  animation:pop .5s cubic-bezier(.2,.9,.3,1.4) both;
+}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+.check svg{width:32px;height:32px}
+.giros{
+  font:italic 900 clamp(52px,17vw,96px)/.9 Montserrat,sans-serif;color:var(--verde);
+  letter-spacing:-.03em;text-shadow:0 0 30px rgba(3,242,254,.45);
+}
+.giros-lbl{
+  font:italic 900 clamp(22px,6.5vw,32px)/1 Montserrat,sans-serif;text-transform:uppercase;margin-top:6px;
+}
+.sub{margin-top:12px;font:400 15px/1.45 Inter,sans-serif;color:var(--cinza);max-width:34ch}
+
+.cta{
+  margin-top:30px;position:relative;isolation:isolate;
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:60px;padding:0 16px;border-radius:999px;border:0;
+  background:var(--verde);color:var(--preto);text-decoration:none;
+  font:italic 900 clamp(14px,4.6vw,19px)/1 Montserrat,sans-serif;text-transform:uppercase;letter-spacing:.01em;
+  box-shadow:0 10px 30px rgba(3,242,254,.35);
+  animation:pulsar 1.6s ease-in-out infinite;
+  width:100%;max-width:340px;white-space:nowrap;
+  -webkit-tap-highlight-color:transparent;
+}
+.cta::before,.cta::after{ /* anéis que expandem */
+  content:"";position:absolute;inset:0;border-radius:inherit;border:2px solid var(--verde);
+  z-index:-1;animation:anel 1.6s ease-out infinite;
+}
+.cta::after{animation-delay:.5s}
+.cta svg{width:22px;height:22px;flex-shrink:0}
+@keyframes pulsar{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
+@keyframes anel{0%{inset:0;opacity:.85}100%{inset:-14px;opacity:0}}
+.cta:active{transform:scale(.97);animation:none}
+.seguro{margin-top:14px;font:500 12px/1 Inter,sans-serif;color:var(--cinza);display:flex;align-items:center;gap:6px}
+.seguro svg{width:14px;height:14px}
+
+.rodape{text-align:center;font:500 11px/1.5 Inter,sans-serif;color:rgba(255,255,255,.4);letter-spacing:.06em;text-transform:uppercase}
+.rodape b{color:rgba(255,255,255,.7);font-weight:700}
+
+@media (prefers-reduced-motion:reduce){
+  .cta,.cta::before,.cta::after,.barra i::after{animation:none}
+}
+</style>
+</head>
+<body>
+
+<header class="topo"><img src="logo.png" alt="BICHÃO BET"></header>
+
+<main class="meio">
+
+  <!-- FASE 1 -->
+  <section class="fase" id="carregando" aria-live="polite">
+    <div class="rolo" aria-hidden="true"><span><small>R$</small><b id="num">0</b></span></div>
+    <h1 class="titulo">Liberando sua<br><em>chance de ganhar</em></h1>
+    <p class="status" id="status">Conectando</p>
+    <div class="barra" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="barra"><i id="fill"></i></div>
+    <div class="pct" id="pct">0%</div>
+  </section>
+
+  <!-- FASE 2 -->
+  <section class="fase pronto" id="pronto" hidden>
+    <div class="check" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+    </div>
+    <div class="ate">Concorra a até</div>
+    <div class="giros" id="giros-final">R$1.000</div>
+    <div class="giros-lbl">Em banca no registro</div>
+    <p class="sub">Sua vaga está reservada. Faça seu registro e entre no sorteio da banca.</p>
+    <a class="cta" id="cta" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l14 9-14 9V3z"/></svg>
+      Quero concorrer
+    </a>
+    <div class="seguro">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+      Registro grátis · leva 1 minuto
+    </div>
+  </section>
+
+</main>
+
+<footer class="rodape"><b>+18</b> · Jogue com responsabilidade</footer>
+
+<script>
+(function(){
+  // ===== CONFIG =====
+  var VALOR   = 1000;                  // valor da banca (R$)
+  var DESTINO = 'https://bichao.bet'; // pra onde o botão manda (pode vir de ?go=)
+  var DURACAO = 4200;                  // ms do carregamento
+  var STATUS  = [                      // [até %, texto]
+    [15,'Conectando'],
+    [40,'Verificando vagas'],
+    [70,'Reservando sua vaga'],
+    [92,'Liberando o sorteio'],
+    [100,'Quase lá']
+  ];
+  // ==================
+
+  var q = new URLSearchParams(location.search);
+  var destino = q.get('go') || DESTINO;
+  // repassa UTMs pro destino
+  var utm = []; q.forEach(function(v,k){ if(k.indexOf('utm_')===0) utm.push(k+'='+encodeURIComponent(v)); });
+  if(utm.length) destino += (destino.indexOf('?')>-1?'&':'?') + utm.join('&');
+  document.getElementById('cta').href = destino;
+
+  var num=document.getElementById('num'), fill=document.getElementById('fill'),
+      pct=document.getElementById('pct'), st=document.getElementById('status'),
+      barra=document.getElementById('barra'), t0=null;
+
+  // curva: rápido no começo, segura perto do fim (sensação de "processando")
+  function ease(t){ return t<.85 ? 1-Math.pow(1-t/.85,2.2)*1 : .85+ (t-.85)/.15*.15; }
+
+  function frame(ts){
+    if(!t0) t0=ts;
+    var t=Math.min(1,(ts-t0)/DURACAO);
+    var p=Math.round(ease(t)*100);
+    fill.style.width=p+'%'; pct.textContent=p+'%';
+    barra.setAttribute('aria-valuenow',p);
+    num.textContent=Math.round(p/100*VALOR).toLocaleString('pt-BR');
+    for(var i=0;i<STATUS.length;i++){ if(p<=STATUS[i][0]){ st.textContent=STATUS[i][1]; break; } }
+    if(t<1) requestAnimationFrame(frame); else setTimeout(pronto,350);
+  }
+  function pronto(){
+    document.getElementById('carregando').hidden=true;
+    document.getElementById('pronto').hidden=false;
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
